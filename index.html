@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="stylesheet.css" />
+  <title>Seguridad en Redes Sociales</title>
+
+</head>
+
+<body>
+	<div class="video">
+	<video controls autoplay width="640" height="480">
+		<source src="Social Media Safety\Módulo 5_Social Media Safety.mp4" type="video/mp4" />
+	</video>
+</div>
+    <div class="preguntasportema"> 
+<fieldset>
+	<legend>Cuestionario Seguridad en Redes Sociales</legend>
+	<div id="test">
+		<div class="cuestion">1. “Utilizar redes sociales para denunciar y bloquear usuarios hostigadores. Si se es v&iacute;ctima de acoso cibern&eacute;tico, las autoridades locales y nacionales est&aacute;n listas para ayudar”. El enunciado anterior corresponde a la siguiente medida de seguridad en redes sociales:</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="0" value="a">&nbsp;a : Denunciar actividades sospechosas u hostigadoras.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="b">&nbsp;b : Proteger cualquier conexi&oacute;n.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="c">&nbsp;c : Expresar cualquier incomodidad.&nbsp;</label>
+		</div>
+		<div class="cuestion">2. “Limitar la informaci&oacute;n que se publica en redes sociales. Desde los sitios que se frecuentan hasta la informaci&oacute;n sensible como nombre completo, contrase&nacute;as, etc.”. El enunciado anterior corresponde a la siguiente medida de seguridad en redes sociales:</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="1" value="a">&nbsp;a : Conectar s&oacute;lo con personas de confianza.&nbsp;</label>
+			<label>
+				<input type="radio" name="1" value="b">&nbsp;b : Borrar no asegura que se elimine de internet.&nbsp;</label>
+			<label>
+				<input type="radio" name="1" value="c">&nbsp;c : No revelar demasiada informaci&oacute;n.&nbsp;</label>
+		</div>
+		<div class="cuestion">3. “Desactivar las etiquetas geogr&aacute;ficas y ajustar la seguridad y privacidad seg&uacute;n la comodidad que se tenga”. El enunciado anterior corresponde a la siguiente medida de seguridad en redes sociales:</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="2" value="a">&nbsp;a : Expresar cualquier incomodidad.&nbsp;</label>
+			<label>
+				<input type="radio" name="2" value="b">&nbsp;b : Actualizar las configuraciones de seguridad.&nbsp;</label>
+			<label>
+				<input type="radio" name="2" value="c">&nbsp;c : Conectar s&oacute;lo con personas de confianza.&nbsp;</label>
+		</div>
+	</div>
+	<button id="boton">Mostrar resultado</button>
+	<div id="resultado">
+		<br>
+	</div>
+	<script>
+		const contenedor = document.getElementById("test");
+		const botonRes = document.getElementById("boton");
+		const resultadoTest = document.getElementById("resultado");
+
+		const preguntas = [
+			{
+				pregunta: "1. “Utilizar redes sociales para denunciar y bloquear usuarios hostigadores. Si se es víctima de acoso cibernético, las autoridades locales y nacionales están listas para ayudar”. El enunciado anterior corresponde a la siguiente medida de seguridad en redes sociales:",
+				respuestas:
+				{
+					a: "Denunciar actividades sospechosas u hostigadoras.",
+					b: "Proteger cualquier conexión.",
+					c: "Expresar cualquier incomodidad.",
+				},
+				respuestaCorrecta: "a",
+			},
+			{
+				pregunta: "2. “Limitar la información que se publica en redes sociales. Desde los sitios que se frecuentan hasta la información sensible como nombre completo, contraseñas, etc.”. El enunciado anterior corresponde a la siguiente medida de seguridad en redes sociales:",
+				respuestas:
+				{
+					a: "Conectar sólo con personas de confianza.",
+					b: "Borrar no asegura que se elimine de internet.",
+					c: "No revelar demasiada información.",
+				},
+				respuestaCorrecta: "c",
+			},
+			{
+				pregunta: "3. “Desactivar las etiquetas geográficas y ajustar la seguridad y privacidad según la comodidad que se tenga”. El enunciado anterior corresponde a la siguiente medida de seguridad en redes sociales:",
+				respuestas:
+				{
+					a: "Expresar cualquier incomodidad.",
+					b: "Actualizar las configuraciones de seguridad.",
+					c: "Conectar sólo con personas de confianza.",
+				},
+				respuestaCorrecta: "b",
+			},
+
+		];
+
+		function mostrarTest()
+		{
+			const preguntasYrespuestas = [];
+
+			preguntas.forEach((preguntaActual, numeroDePregunta) =>
+			{
+
+				const respuestas = [];
+
+				for (letraRespuesta in preguntaActual.respuestas)
+				{
+
+					respuestas.push(
+
+						`
+        <label>
+                  <input type="radio" name="${numeroDePregunta}" value="${letraRespuesta}" />
+                  ${letraRespuesta} : ${preguntaActual.respuestas[letraRespuesta]} <br>
+              </label>` 
+					);
+                   
+				}
+
+				preguntasYrespuestas.push(
+					`
+      <div class="cuestion">${preguntaActual.pregunta}</div>
+      
+          <div class="respuestas"> ${respuestas.join("")} </div>
+          `
+				);
+			});
+
+			contenedor.innerHTML = preguntasYrespuestas.join("");
+		}
+
+		mostrarTest();
+
+		function mostrarResultado()
+		{
+			const respuestas = contenedor.querySelectorAll(".respuestas");
+			let respuestasCorrectas = 0;
+
+			preguntas.forEach((preguntaActual, numeroDePregunta) =>
+			{
+				const todasLasRespuestas = respuestas[numeroDePregunta];
+				const checkboxRespuestas = `input[name='${numeroDePregunta}']:checked`;
+				const respuestaElegida = (
+					todasLasRespuestas.querySelector(checkboxRespuestas) ||
+					{}
+				).value;
+
+				if (respuestaElegida === preguntaActual.respuestaCorrecta)
+				{
+					respuestasCorrectas++;
+
+					respuestas[numeroDePregunta].style.color = "blue";
+				}
+				else
+				{
+					respuestas[numeroDePregunta].style.color = "red";
+				}
+			});
+
+			resultadoTest.innerHTML =
+				"Usted ha acertado " +
+				respuestasCorrectas +
+				" preguntas de un total de " +
+				preguntas.length;
+		}
+
+		botonRes.addEventListener("click", mostrarResultado);
+
+	</script>
+       </div>
+
+</fieldset>
+</body>
+</html>
